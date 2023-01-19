@@ -36,26 +36,36 @@ export class AuthService {
     role: string,
     skill: string,
     certification: string,
-  ): Promise<any>{
+  ): Promise<any> {
     let checkEmail = await this.prisma.nguoiDung.findFirst({
-      where:{
+      where: {
         email,
-      }
-    })
-    if(checkEmail){
+      },
+    });
+    if (checkEmail) {
       return {
-        check:false,
-        data:"Email đã tồn tại"
-      }
-    }else{
+        check: false,
+        data: 'Email đã tồn tại',
+      };
+    } else {
       let dataSignup = await this.prisma.nguoiDung.create({
-        data:{name,email,pass_word,phone,birth_day,gender,role,skill,certification}
-      })
+        data: {
+          name,
+          email,
+          pass_word,
+          phone,
+          birth_day,
+          gender,
+          role,
+          skill,
+          certification,
+        },
+      });
       return {
-        check:true,
-        data:dataSignup,
-        message:"Đăng kí thành công"
-      }
+        check: true,
+        data: dataSignup,
+        message: 'Đăng kí thành công',
+      };
     }
   }
 
